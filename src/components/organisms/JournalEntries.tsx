@@ -2,10 +2,10 @@
 
 import { useState } from "react";
 import { JournalEntry } from "@/types/journal";
-import { LoadingSpinner } from "@/components/ui/LoadingSpinner";
-import { ErrorMessage } from "@/components/ui/ErrorMessage";
-import { PaperList } from "@/components/papers/PaperList";
-import { EmptyPaperView } from "@/components/papers/EmptyPaperView";
+import { LoadingSpinner } from "@/components/molecules/LoadingSpinner";
+import { ErrorMessage } from "@/components/molecules/ErrorMessage";
+import { PaperList } from "@/components/organisms/PaperList";
+import { EmptyPaperView } from "@/components/organisms/EmptyPaperView";
 import PDFViewer from "./PDFViewer";
 import { usePapers } from "@/hooks/usePapers";
 

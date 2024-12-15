@@ -1,4 +1,4 @@
-import JournalEntries from "./components/JournalEntries";
+import JournalEntries from "@/components/organisms/JournalEntries";
 
 export default function Home() {
   return (
