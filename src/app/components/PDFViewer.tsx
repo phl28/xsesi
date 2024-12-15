@@ -35,8 +35,8 @@ export default function PDFViewer({ fileUrl, fileName }: PDFViewerProps) {
   };
 
   return (
-    <div className="h-full flex flex-col">
-      <div className="p-4 bg-indigo-50 border-b border-indigo-100 flex justify-between items-center">
+    <div className="flex flex-col h-full">
+      <div className="flex-none p-4 bg-header-gradient border-b border-indigo-100 flex justify-between items-center">
         <h2 className="text-lg font-semibold text-indigo-900 truncate">
           {fileName}
         </h2>
@@ -71,19 +71,19 @@ export default function PDFViewer({ fileUrl, fileName }: PDFViewerProps) {
               <Loader2 className="w-8 h-8 animate-spin text-indigo-600" />
             </div>
           }
-          className="flex justify-center"
+          className="flex items-center justify-center h-full"
         >
           <Page
             pageNumber={pageNumber}
             width={containerWidth}
-            className="my-4"
+            className="my-4 shadow-lg"
             renderTextLayer={false}
             renderAnnotationLayer={false}
           />
         </Document>
       </div>
 
-      <div className="flex items-center justify-between p-4 bg-white border-t">
+      <div className="flex-none flex items-center justify-between p-4 bg-white border-t">
         <button
           onClick={() => setPageNumber((prev) => Math.max(prev - 1, 1))}
           disabled={pageNumber <= 1}

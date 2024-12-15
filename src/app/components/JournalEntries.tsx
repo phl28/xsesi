@@ -13,26 +13,26 @@ export default function JournalEntries() {
   const { entries, loading, error } = usePapers();
   const [selectedPaper, setSelectedPaper] = useState<JournalEntry | null>(null);
 
-  if (loading) {
-    return (
-      <div className="flex items-center justify-center min-h-[400px]">
-        <LoadingSpinner size={32} />
-      </div>
-    );
-  }
-
   if (error) {
     return <ErrorMessage message={error} />;
   }
 
   return (
-    <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 h-[calc(100vh-16rem)]">
-      <PaperList
-        entries={entries}
-        selectedPaper={selectedPaper}
-        onSelectPaper={setSelectedPaper}
-      />
-      <div className="bg-white shadow-lg rounded-xl overflow-hidden h-full">
+    <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 h-full">
+      <div className="h-full bg-white shadow-lg rounded-xl overflow-hidden">
+        {loading ? (
+          <div className="h-full flex items-center justify-center">
+            <LoadingSpinner size={32} />
+          </div>
+        ) : (
+          <PaperList
+            entries={entries}
+            selectedPaper={selectedPaper}
+            onSelectPaper={setSelectedPaper}
+          />
+        )}
+      </div>
+      <div className="h-full bg-white shadow-lg rounded-xl overflow-hidden">
         {selectedPaper ? (
           <PDFViewer
             fileUrl={selectedPaper.pdfData}

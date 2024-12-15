@@ -13,22 +13,24 @@ export function PaperList({
   onSelectPaper,
 }: PaperListProps) {
   return (
-    <div className="bg-white shadow-lg rounded-xl overflow-hidden">
-      <div className="p-4 bg-indigo-50 border-b border-indigo-100">
+    <div className="flex flex-col h-full">
+      <div className="flex-none p-4 bg-header-gradient border-b border-indigo-100">
         <h2 className="text-lg font-semibold text-indigo-900">
           Available Papers
         </h2>
       </div>
-      <ul className="divide-y divide-gray-100">
-        {entries.map((entry) => (
-          <PaperListItem
-            key={entry.id}
-            entry={entry}
-            isSelected={selectedPaper?.id === entry.id}
-            onSelect={onSelectPaper}
-          />
-        ))}
-      </ul>
+      <div className="flex-1 overflow-auto">
+        <ul className="divide-y divide-gray-100">
+          {entries.map((entry) => (
+            <PaperListItem
+              key={entry.id}
+              entry={entry}
+              isSelected={selectedPaper?.id === entry.id}
+              onSelect={onSelectPaper}
+            />
+          ))}
+        </ul>
+      </div>
     </div>
   );
 }
