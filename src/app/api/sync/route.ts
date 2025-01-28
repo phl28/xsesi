@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import { GET as fetchPDFs } from "../fetch-pdfs";
+import { GET as fetchPDFs } from "../fetch-pdfs/route";
 
 export async function GET() {
   try {
@@ -11,7 +11,7 @@ export async function GET() {
     console.error("Error during synchronization:", error);
     return NextResponse.json(
       { error: "Synchronization failed" },
-      { status: 500 },
+      { status: 500 }
     );
   }
 }

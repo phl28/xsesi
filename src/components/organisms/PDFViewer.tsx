@@ -6,7 +6,7 @@ import { ChevronLeft, ChevronRight, Download, Loader2 } from "lucide-react";
 
 pdfjs.GlobalWorkerOptions.workerSrc = new URL(
   "pdfjs-dist/build/pdf.worker.min.mjs",
-  import.meta.url,
+  import.meta.url
 ).toString();
 
 interface PDFViewerProps {
