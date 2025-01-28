@@ -13,7 +13,7 @@ export function PaperList({
   onSelectPaper,
 }: PaperListProps) {
   return (
-    <div className="flex flex-col h-full">
+    <div className="flex flex-col h-full w-full">
       <div className="flex-none p-4 bg-header-gradient border-b border-indigo-100">
         <h2 className="text-lg font-semibold text-indigo-900">
           Available Papers

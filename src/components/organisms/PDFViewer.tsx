@@ -35,7 +35,7 @@ export default function PDFViewer({ fileUrl, fileName }: PDFViewerProps) {
   };
 
   return (
-    <div className="flex flex-col h-full">
+    <div className="flex flex-col h-full w-full">
       <div className="flex-none p-4 bg-header-gradient border-b border-indigo-100 flex justify-between items-center">
         <h2 className="text-lg font-semibold text-indigo-900 truncate">
           {fileName}
