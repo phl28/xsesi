@@ -19,6 +19,7 @@ export default function PDFViewer({ fileUrl, fileName }: PDFViewerProps) {
   const [pageNumber, setPageNumber] = useState(1);
   const [loading, setLoading] = useState(true);
   const [containerWidth, setContainerWidth] = useState<number>(0);
+  const [containerHeight, setContainerHeight] = useState<number>(0);
 
   function onDocumentLoadSuccess({ numPages }: { numPages: number }) {
     setNumPages(numPages);
@@ -35,6 +36,12 @@ export default function PDFViewer({ fileUrl, fileName }: PDFViewerProps) {
     document.body.removeChild(link);
   };
 
+  const calculateScale = () => {
+    const availableWidth = containerWidth - 48;
+    const availableHeight = containerHeight - 32;
+    return Math.min(availableWidth, availableHeight);
+  };
+
   return (
     <div className="flex flex-col h-full w-full">
       <div className="flex-none p-4 bg-header-gradient border-b border-indigo-100 flex justify-between items-center">
@@ -49,12 +56,12 @@ export default function PDFViewer({ fileUrl, fileName }: PDFViewerProps) {
           <span>Download</span>
         </button>
       </div>
-
       <div
-        className="flex-1 overflow-auto relative bg-gray-100 min-h-0"
+        className="flex-1 overflow-auto bg-gray-100 min-h-0 p-6"
         ref={(ref) => {
           if (ref) {
-            setContainerWidth(ref.clientWidth - 48);
+            setContainerWidth(ref.clientWidth);
+            setContainerHeight(ref.clientHeight);
           }
         }}
       >
@@ -71,18 +78,17 @@ export default function PDFViewer({ fileUrl, fileName }: PDFViewerProps) {
               <Loader2 className="w-8 h-8 animate-spin text-indigo-600" />
             </div>
           }
-          className="flex items-center justify-center h-full"
+          className="flex items-center justify-center min-h-full"
         >
           <Page
             pageNumber={pageNumber}
-            width={containerWidth}
-            className="my-4 shadow-lg"
+            width={calculateScale()}
+            className="shadow-lg"
             renderTextLayer={false}
             renderAnnotationLayer={false}
           />
         </Document>
       </div>
-
       <div className="flex-none flex items-center justify-between p-4 bg-white border-t">
         <button
           onClick={() => setPageNumber((prev) => Math.max(prev - 1, 1))}
