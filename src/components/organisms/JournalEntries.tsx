@@ -18,8 +18,8 @@ export default function JournalEntries() {
   }
 
   return (
-    <div className="flex flex-col lg:flex-row gap-6 h-full w-full">
-      <div className="h-full w-full bg-white shadow-lg rounded-xl overflow-hidden">
+    <div className="flex flex-col lg:flex-row gap-6 h-[calc(100vh-theme(spacing.32))]">
+      <div className="flex-1 min-h-full bg-white shadow-lg rounded-xl overflow-hidden">
         {loading ? (
           <div className="h-full flex items-center justify-center">
             <LoadingSpinner size={32} />
@@ -32,7 +32,7 @@ export default function JournalEntries() {
           />
         )}
       </div>
-      <div className="h-full w-full bg-white shadow-lg rounded-xl overflow-hidden">
+      <div className="flex-1 min-h-full bg-white shadow-lg rounded-xl overflow-hidden">
         {selectedPaper ? (
           <PDFViewer
             fileUrl={selectedPaper.pdfData}

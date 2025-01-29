@@ -25,7 +25,6 @@ export async function GET() {
       orderBy: "createdTime desc",
       pageSize: 100,
     });
-    console.log("route response", response);
 
     const files = response.data.files;
 
@@ -34,6 +33,8 @@ export async function GET() {
     }
 
     // Get direct download links for each PDF
+    // This part takes a long time
+    // @TODO: move this to a separate route and only get the download response when file is clicked
     const filesWithDownloadLinks = await Promise.all(
       files.map(async (file) => {
         if (!file.id) return;

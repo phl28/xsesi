@@ -22,6 +22,7 @@ export default function PDFViewer({ fileUrl, fileName }: PDFViewerProps) {
 
   function onDocumentLoadSuccess({ numPages }: { numPages: number }) {
     setNumPages(numPages);
+    setPageNumber(1);
     setLoading(false);
   }
 
@@ -50,11 +51,10 @@ export default function PDFViewer({ fileUrl, fileName }: PDFViewerProps) {
       </div>
 
       <div
-        className="flex-grow overflow-auto relative bg-gray-100"
+        className="flex-1 overflow-auto relative bg-gray-100 min-h-0"
         ref={(ref) => {
           if (ref) {
-            // Update container width when the ref is available
-            setContainerWidth(ref.clientWidth - 48); // Subtract padding
+            setContainerWidth(ref.clientWidth - 48);
           }
         }}
       >
