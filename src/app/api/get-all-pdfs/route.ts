@@ -1,16 +1,19 @@
-import { getDrive } from "@/app/utils";
+import { getDrive, redisCache } from "@/app/utils";
 import { NextResponse } from "next/server";
 
 export async function GET() {
   try {
-    const folderId = process.env.GOOGLE_DRIVE_FOLDER_ID;
+    const cachedFiles = await redisCache.get("pdf:all-files");
+    if (cachedFiles) {
+      return NextResponse.json({ files: JSON.parse(cachedFiles) });
+    }
 
+    const folderId = process.env.GOOGLE_DRIVE_FOLDER_ID;
     if (!folderId) {
       throw new Error("Google Drive folder ID is not configured");
     }
 
     const drive = getDrive();
-
     const response = await drive.files.list({
       q: `'${folderId}' in parents and mimeType='application/pdf'`,
       fields: "files(id, name, webViewLink, createdTime, thumbnailLink)",
@@ -19,12 +22,13 @@ export async function GET() {
     });
 
     const files = response.data.files;
-
     if (!files || files.length === 0) {
       return NextResponse.json({ files: [] });
     }
 
-    return NextResponse.json({ files: files });
+    await redisCache.set("pdf:all-files", JSON.stringify(files), 300);
+
+    return NextResponse.json({ files });
   } catch (error) {
     console.error("Error fetching PDFs:", error);
     return NextResponse.json(

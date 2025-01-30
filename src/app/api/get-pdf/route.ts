@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 import { GaxiosResponse } from "gaxios";
-import { getDrive } from "@/app/utils";
+import { getDrive, redisCache } from "@/app/utils";
 
 export async function GET(request: Request) {
   try {
@@ -14,8 +14,12 @@ export async function GET(request: Request) {
       );
     }
 
-    const drive = getDrive();
+    const cachedData = await redisCache.get(`pdf:${fileId}`);
+    if (cachedData) {
+      return NextResponse.json({ url: cachedData });
+    }
 
+    const drive = getDrive();
     const downloadResponse = (await drive.files.get(
       {
         fileId: fileId,
@@ -26,6 +30,8 @@ export async function GET(request: Request) {
 
     const base64Data = Buffer.from(downloadResponse.data).toString("base64");
     const dataUrl = `data:application/pdf;base64,${base64Data}`;
+
+    await redisCache.set(`pdf:${fileId}`, dataUrl);
 
     return NextResponse.json({ url: dataUrl });
   } catch (error) {
