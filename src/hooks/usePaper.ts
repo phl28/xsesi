@@ -24,7 +24,7 @@ export function usePaper({ fileId }: { fileId: string }) {
     }
 
     fetchPDF();
-  }, []);
+  }, [fileId]);
 
   return { fileUrl, loading, error };
 }
