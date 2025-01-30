@@ -1,18 +1,11 @@
-import { google } from "googleapis";
 import { NextResponse } from "next/server";
 import { GaxiosResponse } from "gaxios";
-
-const SCOPES = ["https://www.googleapis.com/auth/drive.readonly"];
-
-const auth = new google.auth.GoogleAuth({
-  keyFile: process.env.GOOGLE_APPLICATION_CREDENTIALS,
-  scopes: SCOPES,
-});
+import { getDrive } from "@/app/utils";
 
 export async function GET(request: Request) {
   try {
     const { searchParams } = new URL(request.url);
-    const fileId = searchParams.get('fileId');
+    const fileId = searchParams.get("fileId");
 
     if (!fileId) {
       return NextResponse.json(
@@ -21,8 +14,8 @@ export async function GET(request: Request) {
       );
     }
 
-    const drive = google.drive({ version: "v3", auth });
-    
+    const drive = getDrive();
+
     const downloadResponse = (await drive.files.get(
       {
         fileId: fileId,

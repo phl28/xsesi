@@ -1,12 +1,5 @@
-import { google } from "googleapis";
+import { getDrive } from "@/app/utils";
 import { NextResponse } from "next/server";
-
-const SCOPES = ["https://www.googleapis.com/auth/drive.readonly"];
-
-const auth = new google.auth.GoogleAuth({
-  keyFile: process.env.GOOGLE_APPLICATION_CREDENTIALS,
-  scopes: SCOPES,
-});
 
 export async function GET() {
   try {
@@ -16,7 +9,7 @@ export async function GET() {
       throw new Error("Google Drive folder ID is not configured");
     }
 
-    const drive = google.drive({ version: "v3", auth });
+    const drive = getDrive();
 
     const response = await drive.files.list({
       q: `'${folderId}' in parents and mimeType='application/pdf'`,
