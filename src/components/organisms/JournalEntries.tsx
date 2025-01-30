@@ -34,10 +34,7 @@ export default function JournalEntries() {
       </div>
       <div className="flex-1 min-h-full bg-white shadow-lg rounded-xl overflow-hidden">
         {selectedPaper ? (
-          <PDFViewer
-            fileUrl={selectedPaper.pdfData}
-            fileName={selectedPaper.name}
-          />
+          <PDFViewer fileId={selectedPaper.id} fileName={selectedPaper.name} />
         ) : (
           <EmptyPaperView />
         )}

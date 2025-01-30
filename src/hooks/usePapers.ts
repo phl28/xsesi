@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { JournalEntry, APIResponse } from "@/types/journal";
+import { JournalEntry, GetAllPDFsResponse } from "@/types/journal";
 
 export function usePapers() {
   const [entries, setEntries] = useState<JournalEntry[]>([]);
@@ -9,11 +9,11 @@ export function usePapers() {
   useEffect(() => {
     async function fetchEntries() {
       try {
-        const response = await fetch("/api/fetch-pdfs");
+        const response = await fetch("/api/get-all-pdfs");
         if (!response.ok) {
           throw new Error("Failed to fetch papers");
         }
-        const data: APIResponse = await response.json();
+        const data: GetAllPDFsResponse = await response.json();
         setEntries(data.files);
       } catch (error) {
         console.error("Error fetching entries:", error);

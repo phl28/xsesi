@@ -1,13 +1,16 @@
-export interface JournalEntry {
+export type JournalEntry = {
   id: string;
   name: string;
   webViewLink: string;
   createdTime: string;
-  pdfData: string;
   thumbnailLink?: string;
-}
+};
 
-export interface APIResponse {
+export type GetAllPDFsResponse = {
   files: JournalEntry[];
   error?: string;
-}
+};
+
+export type GetPDFResponse = {
+  url: string;
+};

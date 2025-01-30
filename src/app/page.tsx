@@ -1,6 +1,15 @@
+"use client";
+
 import JournalEntries from "@/components/organisms/JournalEntries";
+import { useEffect, useState } from "react";
 
 export default function Home() {
+  const [year, setYear] = useState("");
+
+  useEffect(() => {
+    setYear(new Date().getFullYear().toString());
+  }, []);
+
   return (
     <div className="min-h-screen flex flex-col bg-gray-50">
       <header className="bg-white border-b flex-none">
@@ -23,7 +32,7 @@ export default function Home() {
       <footer className="bg-white border-t flex-none">
         <div className="max-w-7xl mx-auto py-3 px-4 sm:px-6 lg:px-8">
           <p className="text-center text-gray-600 text-sm">
-            © {new Date().getFullYear()} Xsesi&apos;s Academic Journal
+            © {year} Xsesi&apos;s Academic Journal
           </p>
         </div>
       </footer>

@@ -1,4 +1,4 @@
-import { JournalEntry } from "../types/journal";
+import { GetPDFResponse, JournalEntry } from "../types/journal";
 
 // Sample base64 encoded tiny PDF (1x1 pixel) - for testing purposes
 const MOCK_PDF_DATA =
@@ -10,7 +10,6 @@ export const mockPapers: JournalEntry[] = [
     name: "Machine Learning in Healthcare.pdf",
     webViewLink: "https://example.com/view/1",
     createdTime: "2024-01-15T10:30:00Z",
-    pdfData: MOCK_PDF_DATA,
     thumbnailLink: "https://example.com/thumbnail/1",
   },
   {
@@ -18,7 +17,6 @@ export const mockPapers: JournalEntry[] = [
     name: "Quantum Computing Applications.pdf",
     webViewLink: "https://example.com/view/2",
     createdTime: "2024-01-20T14:45:00Z",
-    pdfData: MOCK_PDF_DATA,
     thumbnailLink: "https://example.com/thumbnail/2",
   },
   {
@@ -26,7 +24,10 @@ export const mockPapers: JournalEntry[] = [
     name: "Artificial Intelligence Ethics.pdf",
     webViewLink: "https://example.com/view/3",
     createdTime: "2024-02-01T09:15:00Z",
-    pdfData: MOCK_PDF_DATA,
     thumbnailLink: "https://example.com/thumbnail/3",
   },
 ];
+
+export const mockFileResponse: GetPDFResponse = {
+  url: MOCK_PDF_DATA,
+};

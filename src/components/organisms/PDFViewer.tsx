@@ -3,6 +3,9 @@
 import { useState } from "react";
 import { Document, Page, pdfjs } from "react-pdf";
 import { ChevronLeft, ChevronRight, Download, Loader2 } from "lucide-react";
+import { usePaper } from "@/hooks/usePaper";
+import { ErrorMessage } from "../molecules/ErrorMessage";
+import { LoadingSpinner } from "../molecules/LoadingSpinner";
 
 pdfjs.GlobalWorkerOptions.workerSrc = new URL(
   "pdfjs-dist/build/pdf.worker.min.mjs",
@@ -10,21 +13,20 @@ pdfjs.GlobalWorkerOptions.workerSrc = new URL(
 ).toString();
 
 interface PDFViewerProps {
-  fileUrl: string;
+  fileId: string;
   fileName: string;
 }
 
-export default function PDFViewer({ fileUrl, fileName }: PDFViewerProps) {
+export default function PDFViewer({ fileId, fileName }: PDFViewerProps) {
   const [numPages, setNumPages] = useState<number | null>(null);
   const [pageNumber, setPageNumber] = useState(1);
-  const [loading, setLoading] = useState(true);
   const [containerWidth, setContainerWidth] = useState<number>(0);
   const [containerHeight, setContainerHeight] = useState<number>(0);
+  const { fileUrl, loading, error } = usePaper({ fileId });
 
   function onDocumentLoadSuccess({ numPages }: { numPages: number }) {
     setNumPages(numPages);
     setPageNumber(1);
-    setLoading(false);
   }
 
   const handleDownload = () => {
@@ -41,6 +43,10 @@ export default function PDFViewer({ fileUrl, fileName }: PDFViewerProps) {
     const availableHeight = containerHeight - 32;
     return Math.min(availableWidth, availableHeight);
   };
+
+  if (error) {
+    return <ErrorMessage message={error} />;
+  }
 
   return (
     <div className="flex flex-col h-full w-full">
@@ -66,8 +72,8 @@ export default function PDFViewer({ fileUrl, fileName }: PDFViewerProps) {
         }}
       >
         {loading && (
-          <div className="absolute inset-0 flex items-center justify-center bg-white bg-opacity-80">
-            <Loader2 className="w-8 h-8 animate-spin text-indigo-600" />
+          <div className="h-full flex items-center justify-center">
+            <LoadingSpinner size={32} />
           </div>
         )}
         <Document
