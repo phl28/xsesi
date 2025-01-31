@@ -3,14 +3,14 @@ import { NextResponse } from "next/server";
 
 export async function GET() {
   try {
-    const cachedFiles = await redisCache.get("pdf:all-files");
-    if (cachedFiles) {
-      return NextResponse.json({ files: JSON.parse(cachedFiles) });
-    }
-
     const folderId = process.env.GOOGLE_DRIVE_FOLDER_ID;
     if (!folderId) {
       throw new Error("Google Drive folder ID is not configured");
+    }
+
+    const cachedFiles = await redisCache.get(`pdf:all-files:${folderId}`);
+    if (cachedFiles) {
+      return NextResponse.json({ files: JSON.parse(cachedFiles) });
     }
 
     const drive = getDrive();
@@ -26,7 +26,11 @@ export async function GET() {
       return NextResponse.json({ files: [] });
     }
 
-    await redisCache.set("pdf:all-files", JSON.stringify(files), 300);
+    await redisCache.set(
+      `pdf:all-files:${folderId}`,
+      JSON.stringify(files),
+      600
+    );
 
     return NextResponse.json({ files });
   } catch (error) {

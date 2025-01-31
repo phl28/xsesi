@@ -25,3 +25,11 @@ Then in a separate tab, run
 ```bash
 redis-cli
 ```
+
+In order for this app to work, you need to set the following environment variables:
+
+- `GOOGLE_APPLICATION_CREDENTIALS`: The path to your Google Cloud credentials file
+- `GOOGLE_DRIVE_FOLDER_ID`: The ID of the folder in Google Drive where the PDFs are stored
+- `INTERNAL_REDIS_URL`: The URL of the Redis server
+
+To get the files, you need the folder owner to share the folder with the service account email and then give you the folder ID.
