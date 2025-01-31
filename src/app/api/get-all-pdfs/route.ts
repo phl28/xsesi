@@ -1,4 +1,5 @@
-import { getDrive, redisCache } from "@/app/utils";
+import { getDrive } from "@/app/utils";
+import { redisCache } from "@/services/redis";
 import { NextResponse } from "next/server";
 
 export async function GET() {
@@ -11,6 +12,9 @@ export async function GET() {
     const cachedFiles = await redisCache.get(`pdf:all-files:${folderId}`);
     if (cachedFiles) {
       return NextResponse.json({ files: JSON.parse(cachedFiles) });
+    } else {
+      // this means that the folder might have changed and thus the previous cached files are no longer valid
+      await redisCache.cleanUp();
     }
 
     const drive = getDrive();

@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 import { GaxiosResponse } from "gaxios";
-import { getDrive, redisCache } from "@/app/utils";
+import { getDrive } from "@/app/utils";
+import { redisCache } from "@/services/redis";
 
 export async function GET(request: Request) {
   try {
