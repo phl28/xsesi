@@ -22,16 +22,6 @@ class RedisService {
   private async init() {
     if (!this.initialized) {
       await this.client.connect();
-      await this.client.sendCommand(["CONFIG", "SET", "maxmemory", "25mb"]);
-      await this.client.sendCommand([
-        "CONFIG",
-        "SET",
-        "maxmemory-policy",
-        "allkeys-lru",
-      ]);
-
-      const maxMemory = await this.client.sendCommand(["CONFIG", "GET", "maxmemory"]);
-      console.log("Redis max memory configured:", maxMemory);
       this.initialized = true;
     }
   }
