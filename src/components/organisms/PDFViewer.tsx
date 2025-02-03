@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { Document, Page, pdfjs } from "react-pdf";
-import { ChevronLeft, ChevronRight, Download, Loader2 } from "lucide-react";
+import { ChevronLeft, ChevronRight, Loader2 } from "lucide-react";
 import { usePaper } from "@/hooks/usePaper";
 import { ErrorMessage } from "../molecules/ErrorMessage";
 import { LoadingSpinner } from "../molecules/LoadingSpinner";
@@ -29,14 +29,14 @@ export default function PDFViewer({ fileId, fileName }: PDFViewerProps) {
     setPageNumber(1);
   }
 
-  const handleDownload = () => {
-    const link = document.createElement("a");
-    link.href = fileUrl;
-    link.download = fileName;
-    document.body.appendChild(link);
-    link.click();
-    document.body.removeChild(link);
-  };
+  // const handleDownload = () => {
+  //   const link = document.createElement("a");
+  //   link.href = fileUrl;
+  //   link.download = fileName;
+  //   document.body.appendChild(link);
+  //   link.click();
+  //   document.body.removeChild(link);
+  // };
 
   const calculateScale = () => {
     const availableWidth = containerWidth - 48;
@@ -54,13 +54,14 @@ export default function PDFViewer({ fileId, fileName }: PDFViewerProps) {
         <h2 className="text-lg font-semibold text-indigo-900 truncate">
           {fileName}
         </h2>
-        <button
+        {/* @TODO: Allow download when we have user authentication as we dont want anyone to be able to download the files */}
+        {/* <button
           onClick={handleDownload}
           className="flex items-center space-x-2 px-3 py-1.5 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 transition"
         >
           <Download size={16} />
           <span>Download</span>
-        </button>
+        </button> */}
       </div>
       <div
         className="flex-1 overflow-auto bg-gray-100 min-h-0 p-6"
