@@ -17,7 +17,9 @@ export function PaperListItem({
       <button
         onClick={() => onSelect(entry)}
         className={`w-full text-left block hover:bg-indigo-50 focus:outline-none focus:bg-indigo-50
-          transition duration-150 ease-in-out p-4 ${isSelected ? "bg-indigo-50" : ""}`}
+          transition duration-150 ease-in-out p-4 ${
+            isSelected ? "bg-indigo-50" : ""
+          }`}
       >
         <div className="flex items-center justify-between">
           <div className="flex items-center space-x-3">
@@ -26,7 +28,7 @@ export function PaperListItem({
               <p className="text-sm font-medium text-gray-900">{entry.name}</p>
               <p className="text-xs text-gray-500 flex items-center mt-1">
                 <Calendar className="w-3 h-3 mr-1" />
-                {new Date(entry.createdTime).toLocaleDateString()}
+                {entry.createdTime}
               </p>
             </div>
           </div>
