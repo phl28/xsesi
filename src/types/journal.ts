@@ -6,8 +6,15 @@ export type JournalEntry = {
   thumbnailLink?: string;
 };
 
-export type GetAllPDFsResponse = {
+export type DriveFolder = {
+  id: string;
+  name: string;
   files: JournalEntry[];
+  subFolders: DriveFolder[];
+};
+
+export type GetAllPDFsResponse = {
+  folder: DriveFolder;
   error?: string;
 };
 

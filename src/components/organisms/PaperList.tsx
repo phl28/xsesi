@@ -1,8 +1,8 @@
-import { JournalEntry } from "@/types/journal";
+import { DriveFolder, JournalEntry } from "@/types/journal";
 import { PaperListItem } from "./PaperListItem";
 
 interface PaperListProps {
-  entries: JournalEntry[];
+  entries: DriveFolder | undefined;
   selectedPaper: JournalEntry | null;
   onSelectPaper: (entry: JournalEntry) => void;
 }
@@ -21,7 +21,7 @@ export function PaperList({
       </div>
       <div className="flex-1 overflow-auto">
         <ul className="divide-y divide-gray-100">
-          {entries.map((entry) => (
+          {entries?.files.map((entry) => (
             <PaperListItem
               key={entry.id}
               entry={entry}
